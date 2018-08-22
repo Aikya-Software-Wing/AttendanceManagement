@@ -24,7 +24,8 @@
                     <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
                     <li>@Html.ActionLink("Teachers", "Index", "Teachers")</li>
                     <li>@Html.ActionLink("Subjects", "Index", "Subjects")</li>
-                    <li>@Html.ActionLink("Students", "Index", "Students")</li>              
+                    <li>@Html.ActionLink("Students", "Index", "Students")</li>        
+                    <li>@Html.ActionLink("Manage Attendance", "Index","ManageAttendance")</li> 
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,7 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - AMS</p>
+            <p>&copy; @DateTime.Now.Year - Aikya Software Wing RNSIT</p>
         </footer>
     </div>
 
