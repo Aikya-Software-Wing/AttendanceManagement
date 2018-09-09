@@ -27,7 +27,11 @@ namespace AttendanceManagement.Models
         public int Sem { get; set; }
         public string Department_DID { get; set; }
         public string Subject_SubCode { get; set; }
-    
+        public DateTime Date { get; set; }
+        public string Slot { get; set; }
+        public bool IsPresent { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendances { get; set; }
         public virtual Department Department { get; set; }

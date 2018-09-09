@@ -19,6 +19,10 @@ namespace AttendanceManagement.Models
 
         public List<string> Departments { get; set; }
 
+        public List<string> Slot { get; set; }
+
+        public DateTime Date { get; set; }
+
 
 
         // [Required]

@@ -20,6 +20,7 @@ namespace AttendanceManagement.Models
         public System.DateTime Date { get; set; }
         public int Slot { get; set; }
         public string Status { get; set; }
+        public bool IsPresent { get; set; }
     
         public virtual Student Student { get; set; }
         public virtual Subject Subject { get; set; }
