@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AttendanceManagement.Models;
+using AttendanceManagement.ViewModel;
 using System.Data.Entity;
 using System.Collections;
 
@@ -35,17 +36,28 @@ namespace AttendanceManagement.Controllers
            return RedirectToAction("AddAttendance", "ManageAttendance", new { departmentID = student.Department_DID, Semester = student.Sem, section = student.Section, slot = student.Slot, date = student.Date});           
         } 
 
-        public ActionResult AddAttendance(string departmentID, int Semester, string section, string slot)
+        public ActionResult AddAttendance(string departmentID, int Semester, string section, int slot, DateTime date)
         {
-            var getStudent = db.Students.Find(departmentID);
+            AttendanceViewModel attendanceViewModel = new AttendanceViewModel
+            {
+                Slot = slot,
+                Date = date
+            };
             var students = db.Students.Where(s => s.Department_DID == (departmentID)).Where(s => s.Sem == (Semester)).Where(s => s.Section == (section)).ToList();
-            return View(students);
+            attendanceViewModel.Students = students;
+            var subjectCode = students[0].Subject_SubCode;
+            var query = db.Teacher_Teaches_Student.Where(s => s.Subject_SubCode == subjectCode).Select(t => t.Teacher_TID).ToList();
+            attendanceViewModel.TeacherId = query[0];
+            return View(attendanceViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAttendance([Bind(Include = "Student_USN,Teacher_TID,Subject_SubCode,Date,Slot,Status")] Attendance attendance)
+        public ActionResult AddAttendance([Bind(Include = "Student_USN,Teacher_TID,Subject_Subcode,Date,Slot")] AttendanceViewModel attendanceViewModel)
         {
+            Attendance attendance = new Attendance();
+            attendance.Date = attendanceViewModel.Date;
+            attendance.Slot = attendanceViewModel.Slot;
             if (ModelState.IsValid)
             {
                 db.Attendances.Add(attendance);
