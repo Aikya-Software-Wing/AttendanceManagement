@@ -1,0 +1,56 @@
+﻿@model AttendanceManagement.ViewModel.AttendanceViewModel
+
+
+@{
+    ViewBag.Title = "Add Attendance";
+    var students = Model.Students;
+}
+</ br>
+<h2>Select the Students</h2>
+<h5>TeacherID -- @Model.TeacherId</h5>
+<h5>Date -- @Model.Date</h5>
+<h5>Slot --@Model.Slot</h5>
+<h5>Subject Code -- @Model.SubjectCode</h5>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr></tr>
+        <tr>
+            <th>
+                @Html.DisplayName("USN")
+            </th>
+            <th>
+                @Html.DisplayName("Name")
+            </th>
+            <th>
+                @Html.DisplayName("Check")
+            </th>
+
+        </tr>
+        @foreach (var student in students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => student.USN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => student.Name)
+                </td>
+                <td>
+                    @Html.CheckBox("isPresent", true)
+                </td>
+            </tr>
+        }
+    </table>    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add Attendance" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

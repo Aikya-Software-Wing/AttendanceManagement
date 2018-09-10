@@ -31,12 +31,12 @@ namespace AttendanceManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Student student)
+        public ActionResult Index(ClassViewModel classViewModel)
         {
-           return RedirectToAction("AddAttendance", "ManageAttendance", new { departmentID = student.Department_DID, Semester = student.Sem, section = student.Section, slot = student.Slot, date = student.Date});           
+           return RedirectToAction("AddAttendance", "ManageAttendance", new { departmentID = classViewModel.Department_DID, Semester = classViewModel.Sem, section = classViewModel.Section, slot = classViewModel.Slot, date = classViewModel.Date});           
         } 
 
-        public ActionResult AddAttendance(string departmentID, int Semester, string section, int slot, DateTime date)
+        public ActionResult AddAttendance(string departmentID, int Semester, string section, string slot, DateTime date)
         {
             AttendanceViewModel attendanceViewModel = new AttendanceViewModel
             {
@@ -48,12 +48,13 @@ namespace AttendanceManagement.Controllers
             var subjectCode = students[0].Subject_SubCode;
             var query = db.Teacher_Teaches_Student.Where(s => s.Subject_SubCode == subjectCode).Select(t => t.Teacher_TID).ToList();
             attendanceViewModel.TeacherId = query[0];
+            attendanceViewModel.SubjectCode = subjectCode;
             return View(attendanceViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAttendance([Bind(Include = "Student_USN,Teacher_TID,Subject_Subcode,Date,Slot")] AttendanceViewModel attendanceViewModel)
+        public ActionResult AddAttendance([Bind(Include = "Students,TeacherId,IsPresent,SubjectCode,Date,Slot")] AttendanceViewModel attendanceViewModel)
         {
             Attendance attendance = new Attendance();
             attendance.Date = attendanceViewModel.Date;

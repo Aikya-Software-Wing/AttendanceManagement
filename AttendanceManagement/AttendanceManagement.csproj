@@ -256,6 +256,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AttendanceViewModel.cs" />
+    <Compile Include="ViewModel\ClassViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -475,9 +476,9 @@
     <Content Include="Views\Attendances\Edit.cshtml" />
     <Content Include="Views\Attendances\Index.cshtml" />
     <Content Include="Views\ManageAttendance\Index.cshtml" />
-    <None Include="Views\ManageAttendance\AddAttendance.cshtml" />
+    <Content Include="Views\ManageAttendance\AddAttendance.cshtml" />
+    <None Include="Views\ManageAttendance\AddAttendance.cshtml.old" />
     <Content Include="Views\ManageAttendance\Invalid.cshtml" />
-    <Content Include="Views\ManageAttendance\Attendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

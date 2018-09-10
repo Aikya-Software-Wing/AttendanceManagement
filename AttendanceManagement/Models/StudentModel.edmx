@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AttendanceManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AttendanceManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="Student_USN" />
@@ -17,8 +17,7 @@
           <Property Name="Teacher_TID" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="Subject_SubCode" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="Slot" Type="int" Nullable="false" />
-          <Property Name="Status" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Slot" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -64,7 +63,7 @@
           <Property Name="Student_USN" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Teacher_TID" Type="nvarchar" MaxLength="7" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Attendanc__Stude__1CF15040">
+        <Association Name="FK__Attendanc__Stude__5DCAEF64">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -76,7 +75,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Attendanc__Subje__1BFD2C07">
+        <Association Name="FK__Attendanc__Subje__5CD6CB2B">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -88,7 +87,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Attendanc__Teach__1DE57479">
+        <Association Name="FK__Attendanc__Teach__5EBF139D">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -100,7 +99,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__Departm__1920BF5C">
+        <Association Name="FK__Student__Departm__2C3393D0">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -114,7 +113,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__Subject__182C9B23">
+        <Association Name="FK__Student__Subject__2B3F6F97">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -126,7 +125,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subject__Departm__15502E78">
+        <Association Name="FK__Subject__Departm__286302EC">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
           <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
           <ReferentialConstraint>
@@ -138,7 +137,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher__Departm__1273C1CD">
+        <Association Name="FK__Teacher__Departm__25869641">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -150,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_T__Stude__21B6055D">
+        <Association Name="FK__Teacher_T__Stude__34C8D9D1">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Teacher_Teaches_Student" Type="Self.Teacher_Teaches_Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_T__Subje__20C1E124">
+        <Association Name="FK__Teacher_T__Subje__33D4B598">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Teacher_Teaches_Student" Type="Self.Teacher_Teaches_Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -174,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_T__Teach__22AA2996">
+        <Association Name="FK__Teacher_T__Teach__35BCFE0A">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
           <End Role="Teacher_Teaches_Student" Type="Self.Teacher_Teaches_Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,52 +192,99 @@
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher_Teaches_Student" EntityType="Self.Teacher_Teaches_Student" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Attendanc__Stude__1CF15040" Association="Self.FK__Attendanc__Stude__1CF15040">
+          <AssociationSet Name="FK__Attendanc__Stude__5DCAEF64" Association="Self.FK__Attendanc__Stude__5DCAEF64">
             <End Role="Student" EntitySet="Student" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK__Attendanc__Subje__1BFD2C07" Association="Self.FK__Attendanc__Subje__1BFD2C07">
+          <AssociationSet Name="FK__Attendanc__Subje__5CD6CB2B" Association="Self.FK__Attendanc__Subje__5CD6CB2B">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK__Attendanc__Teach__1DE57479" Association="Self.FK__Attendanc__Teach__1DE57479">
+          <AssociationSet Name="FK__Attendanc__Teach__5EBF139D" Association="Self.FK__Attendanc__Teach__5EBF139D">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__Departm__1920BF5C" Association="Self.FK__Student__Departm__1920BF5C">
+          <AssociationSet Name="FK__Student__Departm__2C3393D0" Association="Self.FK__Student__Departm__2C3393D0">
             <End Role="Department" EntitySet="Department" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__Subject__182C9B23" Association="Self.FK__Student__Subject__182C9B23">
+          <AssociationSet Name="FK__Student__Subject__2B3F6F97" Association="Self.FK__Student__Subject__2B3F6F97">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__Subject__Departm__15502E78" Association="Self.FK__Subject__Departm__15502E78">
+          <AssociationSet Name="FK__Subject__Departm__286302EC" Association="Self.FK__Subject__Departm__286302EC">
             <End Role="Department" EntitySet="Department" />
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher__Departm__1273C1CD" Association="Self.FK__Teacher__Departm__1273C1CD">
+          <AssociationSet Name="FK__Teacher__Departm__25869641" Association="Self.FK__Teacher__Departm__25869641">
             <End Role="Department" EntitySet="Department" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher_T__Stude__21B6055D" Association="Self.FK__Teacher_T__Stude__21B6055D">
+          <AssociationSet Name="FK__Teacher_T__Stude__34C8D9D1" Association="Self.FK__Teacher_T__Stude__34C8D9D1">
             <End Role="Student" EntitySet="Student" />
             <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher_T__Subje__20C1E124" Association="Self.FK__Teacher_T__Subje__20C1E124">
+          <AssociationSet Name="FK__Teacher_T__Subje__33D4B598" Association="Self.FK__Teacher_T__Subje__33D4B598">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher_T__Teach__22AA2996" Association="Self.FK__Teacher_T__Teach__22AA2996">
+          <AssociationSet Name="FK__Teacher_T__Teach__35BCFE0A" Association="Self.FK__Teacher_T__Teach__35BCFE0A">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AttendanceManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AttendanceManagementDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attendances" EntityType="AttendanceManagementDBModel.Attendance" />
+          <EntitySet Name="Departments" EntityType="AttendanceManagementDBModel.Department" />
+          <EntitySet Name="Students" EntityType="AttendanceManagementDBModel.Student" />
+          <EntitySet Name="Subjects" EntityType="AttendanceManagementDBModel.Subject" />
+          <EntitySet Name="Teachers" EntityType="AttendanceManagementDBModel.Teacher" />
+          <EntitySet Name="Teacher_Teaches_Student" EntityType="AttendanceManagementDBModel.Teacher_Teaches_Student" />
+          <AssociationSet Name="FK__Attendanc__Stude__5DCAEF64" Association="AttendanceManagementDBModel.FK__Attendanc__Stude__5DCAEF64">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendanc__Subje__5CD6CB2B" Association="AttendanceManagementDBModel.FK__Attendanc__Subje__5CD6CB2B">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendanc__Teach__5EBF139D" Association="AttendanceManagementDBModel.FK__Attendanc__Teach__5EBF139D">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Departm__2C3393D0" Association="AttendanceManagementDBModel.FK__Student__Departm__2C3393D0">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subject__Departm__286302EC" Association="AttendanceManagementDBModel.FK__Subject__Departm__286302EC">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher__Departm__25869641" Association="AttendanceManagementDBModel.FK__Teacher__Departm__25869641">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Teacher" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Subject__2B3F6F97" Association="AttendanceManagementDBModel.FK__Student__Subject__2B3F6F97">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_T__Stude__34C8D9D1" Association="AttendanceManagementDBModel.FK__Teacher_T__Stude__34C8D9D1">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_T__Subje__33D4B598" Association="AttendanceManagementDBModel.FK__Teacher_T__Subje__33D4B598">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_T__Teach__35BCFE0A" Association="AttendanceManagementDBModel.FK__Teacher_T__Teach__35BCFE0A">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="Student_USN" />
@@ -247,63 +293,62 @@
             <PropertyRef Name="Date" />
             <PropertyRef Name="Slot" />
           </Key>
-          <Property Name="Student_USN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Teacher_TID" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Subject_SubCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Student_USN" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Teacher_TID" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="Subject_SubCode" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Slot" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__Attendanc__Stude__1CF15040" FromRole="Attendance" ToRole="Student" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Attendanc__Subje__1BFD2C07" FromRole="Attendance" ToRole="Subject" />
-          <NavigationProperty Name="Teacher" Relationship="Self.FK__Attendanc__Teach__1DE57479" FromRole="Attendance" ToRole="Teacher" />
+          <Property Name="Slot" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="AttendanceManagementDBModel.FK__Attendanc__Stude__5DCAEF64" FromRole="Attendance" ToRole="Student" />
+          <NavigationProperty Name="Subject" Relationship="AttendanceManagementDBModel.FK__Attendanc__Subje__5CD6CB2B" FromRole="Attendance" ToRole="Subject" />
+          <NavigationProperty Name="Teacher" Relationship="AttendanceManagementDBModel.FK__Attendanc__Teach__5EBF139D" FromRole="Attendance" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DID" />
           </Key>
-          <Property Name="DID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__Student__Departm__1920BF5C" FromRole="Department" ToRole="Student" />
-          <NavigationProperty Name="Subjects" Relationship="Self.FK__Subject__Departm__15502E78" FromRole="Department" ToRole="Subject" />
-          <NavigationProperty Name="Teachers" Relationship="Self.FK__Teacher__Departm__1273C1CD" FromRole="Department" ToRole="Teacher" />
+          <Property Name="DID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="AttendanceManagementDBModel.FK__Student__Departm__2C3393D0" FromRole="Department" ToRole="Student" />
+          <NavigationProperty Name="Subjects" Relationship="AttendanceManagementDBModel.FK__Subject__Departm__286302EC" FromRole="Department" ToRole="Subject" />
+          <NavigationProperty Name="Teachers" Relationship="AttendanceManagementDBModel.FK__Teacher__Departm__25869641" FromRole="Department" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="USN" />
           </Key>
-          <Property Name="USN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Section" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="USN" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Section" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="Sem" Type="Int32" Nullable="false" />
           <Property Name="Department_DID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="Subject_SubCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendanc__Stude__1CF15040" FromRole="Student" ToRole="Attendance" />
-          <NavigationProperty Name="Department" Relationship="Self.FK__Student__Departm__1920BF5C" FromRole="Student" ToRole="Department" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Student__Subject__182C9B23" FromRole="Student" ToRole="Subject" />
-          <NavigationProperty Name="Teacher_Teaches_Student" Relationship="Self.FK__Teacher_T__Stude__21B6055D" FromRole="Student" ToRole="Teacher_Teaches_Student" />
+          <Property Name="Subject_SubCode" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attendances" Relationship="AttendanceManagementDBModel.FK__Attendanc__Stude__5DCAEF64" FromRole="Student" ToRole="Attendance" />
+          <NavigationProperty Name="Department" Relationship="AttendanceManagementDBModel.FK__Student__Departm__2C3393D0" FromRole="Student" ToRole="Department" />
+          <NavigationProperty Name="Subject" Relationship="AttendanceManagementDBModel.FK__Student__Subject__2B3F6F97" FromRole="Student" ToRole="Subject" />
+          <NavigationProperty Name="Teacher_Teaches_Student" Relationship="AttendanceManagementDBModel.FK__Teacher_T__Stude__34C8D9D1" FromRole="Student" ToRole="Teacher_Teaches_Student" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="SubCode" />
           </Key>
-          <Property Name="SubCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubCode" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Department_DID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendanc__Subje__1BFD2C07" FromRole="Subject" ToRole="Attendance" />
-          <NavigationProperty Name="Department" Relationship="Self.FK__Subject__Departm__15502E78" FromRole="Subject" ToRole="Department" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__Student__Subject__182C9B23" FromRole="Subject" ToRole="Student" />
-          <NavigationProperty Name="Teacher_Teaches_Student" Relationship="Self.FK__Teacher_T__Subje__20C1E124" FromRole="Subject" ToRole="Teacher_Teaches_Student" />
+          <NavigationProperty Name="Attendances" Relationship="AttendanceManagementDBModel.FK__Attendanc__Subje__5CD6CB2B" FromRole="Subject" ToRole="Attendance" />
+          <NavigationProperty Name="Department" Relationship="AttendanceManagementDBModel.FK__Subject__Departm__286302EC" FromRole="Subject" ToRole="Department" />
+          <NavigationProperty Name="Students" Relationship="AttendanceManagementDBModel.FK__Student__Subject__2B3F6F97" FromRole="Subject" ToRole="Student" />
+          <NavigationProperty Name="Teacher_Teaches_Student" Relationship="AttendanceManagementDBModel.FK__Teacher_T__Subje__33D4B598" FromRole="Subject" ToRole="Teacher_Teaches_Student" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="TID" />
           </Key>
-          <Property Name="TID" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TID" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Department_DID" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendanc__Teach__1DE57479" FromRole="Teacher" ToRole="Attendance" />
-          <NavigationProperty Name="Department" Relationship="Self.FK__Teacher__Departm__1273C1CD" FromRole="Teacher" ToRole="Department" />
-          <NavigationProperty Name="Teacher_Teaches_Student" Relationship="Self.FK__Teacher_T__Teach__22AA2996" FromRole="Teacher" ToRole="Teacher_Teaches_Student" />
+          <NavigationProperty Name="Attendances" Relationship="AttendanceManagementDBModel.FK__Attendanc__Teach__5EBF139D" FromRole="Teacher" ToRole="Attendance" />
+          <NavigationProperty Name="Department" Relationship="AttendanceManagementDBModel.FK__Teacher__Departm__25869641" FromRole="Teacher" ToRole="Department" />
+          <NavigationProperty Name="Teacher_Teaches_Student" Relationship="AttendanceManagementDBModel.FK__Teacher_T__Teach__35BCFE0A" FromRole="Teacher" ToRole="Teacher_Teaches_Student" />
         </EntityType>
         <EntityType Name="Teacher_Teaches_Student">
           <Key>
@@ -311,16 +356,16 @@
             <PropertyRef Name="Student_USN" />
             <PropertyRef Name="Teacher_TID" />
           </Key>
-          <Property Name="Subject_SubCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Student_USN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Teacher_TID" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__Teacher_T__Stude__21B6055D" FromRole="Teacher_Teaches_Student" ToRole="Student" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Teacher_T__Subje__20C1E124" FromRole="Teacher_Teaches_Student" ToRole="Subject" />
-          <NavigationProperty Name="Teacher" Relationship="Self.FK__Teacher_T__Teach__22AA2996" FromRole="Teacher_Teaches_Student" ToRole="Teacher" />
+          <Property Name="Subject_SubCode" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="Student_USN" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Teacher_TID" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="AttendanceManagementDBModel.FK__Teacher_T__Stude__34C8D9D1" FromRole="Teacher_Teaches_Student" ToRole="Student" />
+          <NavigationProperty Name="Subject" Relationship="AttendanceManagementDBModel.FK__Teacher_T__Subje__33D4B598" FromRole="Teacher_Teaches_Student" ToRole="Subject" />
+          <NavigationProperty Name="Teacher" Relationship="AttendanceManagementDBModel.FK__Teacher_T__Teach__35BCFE0A" FromRole="Teacher_Teaches_Student" ToRole="Teacher" />
         </EntityType>
-        <Association Name="FK__Attendanc__Stude__1CF15040">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+        <Association Name="FK__Attendanc__Stude__5DCAEF64">
+          <End Type="AttendanceManagementDBModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Attendance" Role="Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
               <PropertyRef Name="USN" />
@@ -330,9 +375,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Attendanc__Subje__1BFD2C07">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+        <Association Name="FK__Attendanc__Subje__5CD6CB2B">
+          <End Type="AttendanceManagementDBModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Attendance" Role="Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="SubCode" />
@@ -342,9 +387,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Attendanc__Teach__1DE57479">
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+        <Association Name="FK__Attendanc__Teach__5EBF139D">
+          <End Type="AttendanceManagementDBModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Attendance" Role="Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teacher">
               <PropertyRef Name="TID" />
@@ -354,11 +399,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__Departm__1920BF5C">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1">
+        <Association Name="FK__Student__Departm__2C3393D0">
+          <End Type="AttendanceManagementDBModel.Department" Role="Department" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <End Type="AttendanceManagementDBModel.Student" Role="Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DID" />
@@ -368,9 +413,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subject__Departm__15502E78">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+        <Association Name="FK__Subject__Departm__286302EC">
+          <End Type="AttendanceManagementDBModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="AttendanceManagementDBModel.Subject" Role="Subject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DID" />
@@ -380,9 +425,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher__Departm__1273C1CD">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+        <Association Name="FK__Teacher__Departm__25869641">
+          <End Type="AttendanceManagementDBModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="AttendanceManagementDBModel.Teacher" Role="Teacher" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DID" />
@@ -392,9 +437,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__Subject__182C9B23">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+        <Association Name="FK__Student__Subject__2B3F6F97">
+          <End Type="AttendanceManagementDBModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Student" Role="Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="SubCode" />
@@ -404,9 +449,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_T__Stude__21B6055D">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="Teacher_Teaches_Student" Type="Self.Teacher_Teaches_Student" Multiplicity="*" />
+        <Association Name="FK__Teacher_T__Stude__34C8D9D1">
+          <End Type="AttendanceManagementDBModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Teacher_Teaches_Student" Role="Teacher_Teaches_Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
               <PropertyRef Name="USN" />
@@ -416,9 +461,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_T__Subje__20C1E124">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
-          <End Role="Teacher_Teaches_Student" Type="Self.Teacher_Teaches_Student" Multiplicity="*" />
+        <Association Name="FK__Teacher_T__Subje__33D4B598">
+          <End Type="AttendanceManagementDBModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Teacher_Teaches_Student" Role="Teacher_Teaches_Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="SubCode" />
@@ -428,9 +473,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_T__Teach__22AA2996">
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
-          <End Role="Teacher_Teaches_Student" Type="Self.Teacher_Teaches_Student" Multiplicity="*" />
+        <Association Name="FK__Teacher_T__Teach__35BCFE0A">
+          <End Type="AttendanceManagementDBModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="AttendanceManagementDBModel.Teacher_Teaches_Student" Role="Teacher_Teaches_Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teacher">
               <PropertyRef Name="TID" />
@@ -440,54 +485,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AttendanceManagementDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
-          <EntitySet Name="Departments" EntityType="Self.Department" />
-          <EntitySet Name="Students" EntityType="Self.Student" />
-          <EntitySet Name="Subjects" EntityType="Self.Subject" />
-          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
-          <EntitySet Name="Teacher_Teaches_Student" EntityType="Self.Teacher_Teaches_Student" />
-          <AssociationSet Name="FK__Attendanc__Stude__1CF15040" Association="Self.FK__Attendanc__Stude__1CF15040">
-            <End Role="Student" EntitySet="Students" />
-            <End Role="Attendance" EntitySet="Attendances" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Attendanc__Subje__1BFD2C07" Association="Self.FK__Attendanc__Subje__1BFD2C07">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Attendance" EntitySet="Attendances" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Attendanc__Teach__1DE57479" Association="Self.FK__Attendanc__Teach__1DE57479">
-            <End Role="Teacher" EntitySet="Teachers" />
-            <End Role="Attendance" EntitySet="Attendances" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Student__Departm__1920BF5C" Association="Self.FK__Student__Departm__1920BF5C">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Student" EntitySet="Students" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Subject__Departm__15502E78" Association="Self.FK__Subject__Departm__15502E78">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Subject" EntitySet="Subjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher__Departm__1273C1CD" Association="Self.FK__Teacher__Departm__1273C1CD">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Teacher" EntitySet="Teachers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Student__Subject__182C9B23" Association="Self.FK__Student__Subject__182C9B23">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Student" EntitySet="Students" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_T__Stude__21B6055D" Association="Self.FK__Teacher_T__Stude__21B6055D">
-            <End Role="Student" EntitySet="Students" />
-            <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_T__Subje__20C1E124" Association="Self.FK__Teacher_T__Subje__20C1E124">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_T__Teach__22AA2996" Association="Self.FK__Teacher_T__Teach__22AA2996">
-            <End Role="Teacher" EntitySet="Teachers" />
-            <End Role="Teacher_Teaches_Student" EntitySet="Teacher_Teaches_Student" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -497,59 +494,58 @@
           <EntitySetMapping Name="Attendances">
             <EntityTypeMapping TypeName="AttendanceManagementDBModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
-                <ScalarProperty Name="Student_USN" ColumnName="Student_USN" />
-                <ScalarProperty Name="Teacher_TID" ColumnName="Teacher_TID" />
-                <ScalarProperty Name="Subject_SubCode" ColumnName="Subject_SubCode" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Slot" ColumnName="Slot" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Subject_SubCode" ColumnName="Subject_SubCode" />
+                <ScalarProperty Name="Teacher_TID" ColumnName="Teacher_TID" />
+                <ScalarProperty Name="Student_USN" ColumnName="Student_USN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="AttendanceManagementDBModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="DID" ColumnName="DID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DID" ColumnName="DID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="AttendanceManagementDBModel.Student">
               <MappingFragment StoreEntitySet="Student">
-                <ScalarProperty Name="USN" ColumnName="USN" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Section" ColumnName="Section" />
-                <ScalarProperty Name="Sem" ColumnName="Sem" />
-                <ScalarProperty Name="Department_DID" ColumnName="Department_DID" />
                 <ScalarProperty Name="Subject_SubCode" ColumnName="Subject_SubCode" />
+                <ScalarProperty Name="Department_DID" ColumnName="Department_DID" />
+                <ScalarProperty Name="Sem" ColumnName="Sem" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="USN" ColumnName="USN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
             <EntityTypeMapping TypeName="AttendanceManagementDBModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
-                <ScalarProperty Name="SubCode" ColumnName="SubCode" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Department_DID" ColumnName="Department_DID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SubCode" ColumnName="SubCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Teachers">
             <EntityTypeMapping TypeName="AttendanceManagementDBModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
-                <ScalarProperty Name="TID" ColumnName="TID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Department_DID" ColumnName="Department_DID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Teacher_Teaches_Student">
             <EntityTypeMapping TypeName="AttendanceManagementDBModel.Teacher_Teaches_Student">
               <MappingFragment StoreEntitySet="Teacher_Teaches_Student">
-                <ScalarProperty Name="Subject_SubCode" ColumnName="Subject_SubCode" />
-                <ScalarProperty Name="Student_USN" ColumnName="Student_USN" />
                 <ScalarProperty Name="Teacher_TID" ColumnName="Teacher_TID" />
+                <ScalarProperty Name="Student_USN" ColumnName="Student_USN" />
+                <ScalarProperty Name="Subject_SubCode" ColumnName="Subject_SubCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

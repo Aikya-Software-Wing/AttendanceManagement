@@ -18,8 +18,7 @@ namespace AttendanceManagement.Models
         public string Teacher_TID { get; set; }
         public string Subject_SubCode { get; set; }
         public System.DateTime Date { get; set; }
-        public int Slot { get; set; }
-        public bool IsPresent { get; set; }
+        public string Slot { get; set; }
     
         public virtual Student Student { get; set; }
         public virtual Subject Subject { get; set; }

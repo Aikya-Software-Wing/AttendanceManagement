@@ -1,22 +1,48 @@
 ﻿@model AttendanceManagement.ViewModel.AttendanceViewModel
 
-
 @{
-    ViewBag.Title = "Add Attendance";
-    var students = Model.Students;
-    var teacher = Model.TeacherId;
-    var Date = Model.Date;
-    var Slot = Model.Slot;
+    ViewBag.Title = "AddAttendance";
 }
-<h2></h2>
-<h2>Select the Students</h2>
-<h3>@teacher</h3>
-<h3>@Date</h3>
-<h3>@Slot</h3>
 
-@using (Html.BeginForm("AddAttendance", "ManageAttendance"))
-{
-    @Html.AntiForgeryToken()
+<h2>AddAttendance</h2>
+
+<div>
+    <h4>AttendanceViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Slot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Slot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubjectCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectCode)
+        </dd>
+
+    </dl>
     <table class="table">
         <tr></tr>
         <tr>
@@ -31,7 +57,7 @@
             </th>
 
         </tr>
-        @foreach (var student in students)
+        @foreach (var student in Model.Students)
         {
             <tr>
                 <td>
@@ -45,14 +71,14 @@
                 </td>
             </tr>
         }
-    </table>    
+    </table>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Add Attendance" class="btn btn-default" />
+        <div class="col-md-offset-2 col-md-10">            
+            @using (Html.BeginForm("AddAttendance", "ManageAttendance", FormMethod.Post, new { Model.Students, Model.TeacherId, Model.IsPresent, Model.SubjectCode, Model.Date, Model.Slot}))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Add Attendance" class="btn btn-default" />
+            }
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>

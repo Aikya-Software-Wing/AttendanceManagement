@@ -11,6 +11,8 @@ namespace AttendanceManagement.ViewModel
         public List<Student> Students { get; set; }
         public string TeacherId { get; set; }
         public System.DateTime Date { get; set; }
-        public int Slot { get; set; }
+        public string Slot { get; set; }
+        public string SubjectCode { get; set; }
+        public List<Boolean> IsPresent { get; set; }
     }
 }

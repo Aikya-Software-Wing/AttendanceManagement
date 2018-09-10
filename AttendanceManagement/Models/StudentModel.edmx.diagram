@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="84f8ebbb9feb47f493e899865c127a76" Name="Diagram1" ZoomLevel="108">
-        <EntityTypeShape EntityType="AttendanceManagementDBModel.Attendance" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AttendanceManagementDBModel.Department" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AttendanceManagementDBModel.Student" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="AttendanceManagementDBModel.Subject" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AttendanceManagementDBModel.Teacher" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AttendanceManagementDBModel.Teacher_Teaches_Student" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Attendanc__Stude__1CF15040" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Attendanc__Subje__1BFD2C07" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Attendanc__Teach__1DE57479" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Student__Departm__1920BF5C" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Subject__Departm__15502E78" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher__Departm__1273C1CD" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Student__Subject__182C9B23" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher_T__Stude__21B6055D" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher_T__Subje__20C1E124" ManuallyRouted="false" />
-        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher_T__Teach__22AA2996" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AttendanceManagementDBModel.Attendance" Width="1.5" PointX="7.5" PointY="7.75" />
+        <EntityTypeShape EntityType="AttendanceManagementDBModel.Department" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="AttendanceManagementDBModel.Student" Width="1.5" PointX="5.25" PointY="4.875" />
+        <EntityTypeShape EntityType="AttendanceManagementDBModel.Subject" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="AttendanceManagementDBModel.Teacher" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="AttendanceManagementDBModel.Teacher_Teaches_Student" Width="1.5" PointX="10.5" PointY="7.875" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Attendanc__Stude__5DCAEF64" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Attendanc__Subje__5CD6CB2B" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Attendanc__Teach__5EBF139D" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Student__Departm__2C3393D0" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Subject__Departm__286302EC" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher__Departm__25869641" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Student__Subject__2B3F6F97" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher_T__Stude__34C8D9D1" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher_T__Subje__33D4B598" />
+        <AssociationConnector Association="AttendanceManagementDBModel.FK__Teacher_T__Teach__35BCFE0A" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
