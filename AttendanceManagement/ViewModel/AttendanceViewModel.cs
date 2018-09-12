@@ -14,5 +14,7 @@ namespace AttendanceManagement.ViewModel
         public string Slot { get; set; }
         public string SubjectCode { get; set; }
         public List<Boolean> IsPresent { get; set; }
+
+        public virtual Student Student { get; set; }
     }
 }

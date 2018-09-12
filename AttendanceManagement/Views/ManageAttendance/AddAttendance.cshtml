@@ -2,83 +2,84 @@
 
 @{
     ViewBag.Title = "AddAttendance";
+    var Students = Model.Students;
 }
 
 <h2>AddAttendance</h2>
+@using (Html.BeginForm("AddAttendance", "ManageAttendance", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
-<div>
-    <h4>AttendanceViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherId)
-        </dt>
+    <div>
+        <h4>AttendanceViewModel</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TeacherId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TeacherId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.TeacherId)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Slot)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Slot)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Slot)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Slot)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubjectCode)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SubjectCode)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SubjectCode)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SubjectCode)
+            </dd>
 
-    </dl>
-    <table class="table">
-        <tr></tr>
-        <tr>
-            <th>
-                @Html.DisplayName("USN")
-            </th>
-            <th>
-                @Html.DisplayName("Name")
-            </th>
-            <th>
-                @Html.DisplayName("Check")
-            </th>
-
-        </tr>
-        @foreach (var student in Model.Students)
-        {
+        </dl>
+        <table class="table">
+            <tr></tr>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => student.USN)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => student.Name)
-                </td>
-                <td>
-                    @Html.CheckBox("isPresent", true)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.USN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsPresent)
+                </th>
+
             </tr>
-        }
-    </table>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">            
-            @using (Html.BeginForm("AddAttendance", "ManageAttendance", FormMethod.Post, new { Model.Students, Model.TeacherId, Model.IsPresent, Model.SubjectCode, Model.Date, Model.Slot}))
+            @for (int i = 0; i < Model.Students.Count(); i++)
             {
-                @Html.AntiForgeryToken()
-                <input type="submit" value="Add Attendance" class="btn btn-default" />
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Students[i].USN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Students[i].Name)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(model => model.IsPresent[i])
+                    </td>
+                </tr>
             }
+        </table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Attendance" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
+}

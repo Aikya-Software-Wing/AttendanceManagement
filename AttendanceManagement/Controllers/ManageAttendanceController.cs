@@ -13,6 +13,7 @@ namespace AttendanceManagement.Controllers
     public class ManageAttendanceController : Controller
     {
         private AttendanceManagementDBEntities db = new AttendanceManagementDBEntities();
+        private static AttendanceViewModel attendanceViewModel = new AttendanceViewModel();
 
         // GET: ManageAttendance/Index
         public ActionResult Index()
@@ -36,13 +37,11 @@ namespace AttendanceManagement.Controllers
            return RedirectToAction("AddAttendance", "ManageAttendance", new { departmentID = classViewModel.Department_DID, Semester = classViewModel.Sem, section = classViewModel.Section, slot = classViewModel.Slot, date = classViewModel.Date});           
         } 
 
+        [HttpGet]
         public ActionResult AddAttendance(string departmentID, int Semester, string section, string slot, DateTime date)
         {
-            AttendanceViewModel attendanceViewModel = new AttendanceViewModel
-            {
-                Slot = slot,
-                Date = date
-            };
+            attendanceViewModel.Slot = slot;
+            attendanceViewModel.Date = date;
             var students = db.Students.Where(s => s.Department_DID == (departmentID)).Where(s => s.Sem == (Semester)).Where(s => s.Section == (section)).ToList();
             attendanceViewModel.Students = students;
             var subjectCode = students[0].Subject_SubCode;
@@ -54,17 +53,33 @@ namespace AttendanceManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAttendance([Bind(Include = "Students,TeacherId,IsPresent,SubjectCode,Date,Slot")] AttendanceViewModel attendanceViewModel)
+        public ActionResult AddAttendance([Bind(Include = "IsPresent")] AttendanceViewModel model)
         {
             Attendance attendance = new Attendance();
             attendance.Date = attendanceViewModel.Date;
             attendance.Slot = attendanceViewModel.Slot;
-            if (ModelState.IsValid)
+            attendance.Subject_SubCode = attendanceViewModel.SubjectCode;
+            attendance.Teacher_TID = attendanceViewModel.TeacherId;
+            attendance.Teacher = db.Teachers.Find(attendance.Teacher_TID);
+            attendance.Subject = db.Subjects.Find(attendance.Subject_SubCode);
+            int countOfStudents = attendanceViewModel.Students.Count;
+            var checkBoxes = model.IsPresent.ToList();
+            var students = attendanceViewModel.Students;
+            for(int i=0; i<countOfStudents; i++)
+            {
+                if ( checkBoxes[i] == true) {
+                    attendance.Student_USN = students[i].USN;
+                    attendance.Student = db.Students.Find(students[i].USN);
+                    db.Attendances.Add(attendance);
+                    db.SaveChanges();
+                }
+            }
+       /*     if (ModelState.IsValid)
             {
                 db.Attendances.Add(attendance);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            }*/
             return View(attendance);
         }
 
