@@ -1,0 +1,91 @@
+﻿@model AttendanceManagement.Models.TestDetailsViewModel
+@{
+    ViewBag.Title = "Test Details";
+    Layout = "~/Views/Shared/_TPLayout.cshtml";
+}
+<h2>Test Details</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubCode, "SubCode", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubCode", (IEnumerable<SelectListItem>)ViewBag.SubCode, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.InternalNumber, "Internal number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InternalNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Internal no." } })
+                @Html.ValidationMessageFor(model => model.InternalNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+        <table class="table">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.QuestionNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Marks)</th>
+                <th>@Html.DisplayNameFor(model => model.CO)</th>
+            </tr>
+            <tr id="tableStart">
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.QuestionNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Ques no." } })
+                        @Html.ValidationMessageFor(model => model.QuestionNumber, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Marks, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Total Marks." } })
+                        @Html.ValidationMessageFor(model => model.Marks, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.CO, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter CO level." } })
+                        @Html.ValidationMessageFor(model => model.CO, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="questions"></div>
+                </td>
+             </tr>
+        </table>
+        <input id="AddButton" type="button" value="Add Question" onclick="AddQuest();" />
+  
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+    function AddQuest() {
+        var qdiv = document.createElement('tr');
+        qdiv.innerHTML = NewQuestion("");
+        document.getElementById("tableStart").parentNode.appendChild(qdiv);
+    }
+    function NewQuestion(value) {
+        return '<td><div class="col-md-10">\
+                        @Html.TextBoxFor(model => model.QuestionNumber, new { htmlAttributes = new { @class = "form-control"} })\
+                        @Html.ValidationMessageFor(model => model.QuestionNumber, "", new { @class = "text-danger" })\
+                </div></td>\
+                <td><div class="col-md-10">\
+                        @Html.TextBoxFor(model => model.Marks, new { htmlAttributes = new { @class = "form-control"} })\
+                        @Html.ValidationMessageFor(model => model.Marks, "", new { @class = "text-danger" })\
+                </div></td>\
+                <td><div class="col-md-10">\
+                        @Html.TextBoxFor(model => model.CO, new { htmlAttributes = new { @class = "form-control"} })\
+                        @Html.ValidationMessageFor(model => model.CO, "", new { @class = "text-danger" })\
+                </div></td>';
+    }
+</script>

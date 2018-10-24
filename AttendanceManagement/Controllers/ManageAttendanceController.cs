@@ -47,22 +47,14 @@ namespace AttendanceManagement.Controllers
             attendanceViewModel.Date = date.ToShortDateString(); ;
             var students = db.Students.Where(s => s.Department_DID == (departmentID)).Where(s => s.Sem == (Semester)).Where(s => s.Section == (section)).ToList();
             attendanceViewModel.Students = students;
-            //var subjectCode = students[0].Subject_SubCode;
-            //var query = db.Teacher_Teaches_Student.Where(s => s.Subject_SubCode == subjectCode).Select(t => t.Teacher_TID).ToList();
-
-
-            
             var customer = db.AspNetUsers.FirstOrDefault(u => u.Email == User.Identity.Name);
-
             var teacher = db.Teachers.FirstOrDefault(u => u.REFID == customer.Id);
-            
             attendanceViewModel.TeacherId = teacher.TID;
             //Changes are made
             /*var teacherList = db.Teacher_Teaches_Student.Where(u => u.Teacher_TID == teacher.TID).ToList();
             var subject = teacherList.Where(s => s.Student_USN == students[0].USN).FirstOrDefault();*/
             string usn = students[0].USN;
             var tts = db.Teacher_Teaches_Student.Where(u => u.Teacher_TID == teacher.TID).FirstOrDefault(u => u.Student_USN == usn);
-
             attendanceViewModel.SubjectCode = tts.Subject_SubCode;
             return View(attendanceViewModel);
         }
@@ -76,7 +68,6 @@ namespace AttendanceManagement.Controllers
             var students = attendanceViewModel.Students;
             for (int i = 0; i < countOfStudents; i++)
             {
-
                 Attendance attendance = new Attendance();
                 attendance.Date = attendanceViewModel.Date;
                 attendance.Slot = attendanceViewModel.Slot;
@@ -89,17 +80,11 @@ namespace AttendanceManagement.Controllers
                     attendance.IsPresent = 1;
                 else
                     attendance.IsPresent = 0;
-                //attendance.Student = db.Students.Find(students[i].USN);
                 if (ModelState.IsValid)
                 {
                     db.Attendances.Add(attendance);
                     db.SaveChanges();
-                }
-                /*     if (ModelState.IsValid)
-                     {
-                         db.Attendances.Add(attendance);
-                         db.SaveChanges();
-                         return RedirectToAction("Index");*/
+                }                
             }
             return RedirectToAction("Index");
         }
